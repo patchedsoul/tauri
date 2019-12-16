@@ -16,6 +16,7 @@ pub enum PackageType {
   IosBundle,
   WindowsMsi,
   Deb,
+  Arch,
   Rpm,
   AppImage,
   Dmg,
@@ -26,6 +27,7 @@ impl PackageType {
     // Other types we may eventually want to support: apk
     match name {
       "deb" => Some(PackageType::Deb),
+      "arch" => Some(PackageType::Arch),
       "ios" => Some(PackageType::IosBundle),
       "msi" => Some(PackageType::WindowsMsi),
       "osx" => Some(PackageType::OsxBundle),
@@ -39,6 +41,7 @@ impl PackageType {
   pub fn short_name(&self) -> &'static str {
     match *self {
       PackageType::Deb => "deb",
+      PackageType::Arch => "arch",
       PackageType::IosBundle => "ios",
       PackageType::WindowsMsi => "msi",
       PackageType::OsxBundle => "osx",
@@ -55,6 +58,7 @@ impl PackageType {
 
 const ALL_PACKAGE_TYPES: &[PackageType] = &[
   PackageType::Deb,
+  PackageType::Arch,
   PackageType::IosBundle,
   PackageType::WindowsMsi,
   PackageType::OsxBundle,
@@ -329,7 +333,7 @@ impl Settings {
       match target_os {
         "macos" => Ok(vec![PackageType::OsxBundle]),
         "ios" => Ok(vec![PackageType::IosBundle]),
-        "linux" => Ok(vec![PackageType::Deb]), // TODO: Do Rpm too, once it's implemented.
+        "linux" => Ok(vec![PackageType::Deb, PackageType::Arch]), // TODO: Do Rpm too, once it's implemented.
         "windows" => Ok(vec![PackageType::WindowsMsi]),
         os => bail!("Native {} bundles not yet supported.", os),
       }

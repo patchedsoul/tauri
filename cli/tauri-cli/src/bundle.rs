@@ -1,7 +1,9 @@
 mod appimage_bundle;
 mod category;
 mod common;
+mod arch_bundle;
 mod deb_bundle;
+mod arch_bundle;
 mod dmg_bundle;
 mod ios_bundle;
 mod msi_bundle;
@@ -26,7 +28,9 @@ pub fn bundle_project(settings: Settings) -> crate::Result<Vec<PathBuf>> {
       PackageType::WindowsMsi => msi_bundle::bundle_project(&settings)?,
       // force appimage on linux
       // PackageType::Deb => appimage_bundle::bundle_project(&settings)?,
+      PackageType::Arch => arch_bundle::bundle_project(&settings)?,
       PackageType::Deb => deb_bundle::bundle_project(&settings)?,
+      PackageType::Arch => arch_bundle::bundle_project(&settings)?,
       PackageType::Rpm => rpm_bundle::bundle_project(&settings)?,
       PackageType::AppImage => appimage_bundle::bundle_project(&settings)?,
       PackageType::Dmg => dmg_bundle::bundle_project(&settings)?,
