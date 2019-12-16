@@ -1,7 +1,6 @@
 mod appimage_bundle;
 mod category;
 mod common;
-mod arch_bundle;
 mod deb_bundle;
 mod arch_bundle;
 mod dmg_bundle;
